@@ -1,0 +1,29 @@
+body {
+    background: lightblue;
+}
+
+main {
+    max-width: 220px;
+}
+
+button {
+    min-width: 50px;
+    margin: 2px;
+}
+
+.output, button, main {
+    border: 1px solid black
+}
+
+div {
+    display: flex;
+    justify-content: space-around;
+}
+
+.output {
+    justify-content: flex-end;
+}
+
+#zero {
+    flex-grow: 2;
+}
