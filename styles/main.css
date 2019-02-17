@@ -11,7 +11,7 @@ button {
     margin: 2px;
 }
 
-.output, button, main {
+.output, button, main, .answer-area {
     border: 1px solid black
 }
 
@@ -20,10 +20,12 @@ div {
     justify-content: space-around;
 }
 
-.output {
+.output, .answer-area {
     justify-content: flex-end;
+    min-height: 20px;
 }
 
 #zero {
     flex-grow: 2;
 }
+
