@@ -29,3 +29,6 @@ div {
     flex-grow: 2;
 }
 
+button:disabled {
+    background: #dddddd;
+  }
