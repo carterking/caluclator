@@ -12,25 +12,29 @@ let answer;
 let multiplierIndex;
 let divideIndex;
 let replacement;
+let clLen;
+let multDivide;
+let ez = [];
 
 btns.forEach((button) => {
     button.addEventListener("click", function () {
         //handle numbers
         if (this.classList.contains("number") || this.classList.contains("period")) {
+            clLen = currentLog.length - 1;
             if (currentEntry == null) {
                 currentEntry = this.value;
+                currentLog.push(parseFloat(currentEntry));
+                outputArea.textContent = currentLog.join("");
             } else {
                 currentEntry += this.value;
+                currentLog[clLen] = parseFloat(currentEntry);
+                outputArea.textContent = currentLog.join("");
             }
-            if (currentLog.length > 0) {
-                outputArea.textContent = currentLog.join("") + currentEntry;
-            } else {
-                outputArea.textContent = currentEntry;
-            }
+
+            
             //handle operators
         } else if (this.classList.contains("operator")) {
             if (answer == null) {
-                currentLog.push(parseFloat(currentEntry));
                 currentEntry = null;
             } else {
                 currentLog.splice(0, currentLog.length, answer);
@@ -41,25 +45,35 @@ btns.forEach((button) => {
             outputArea.textContent = currentLog.join("");
             //run calculations when user clicks equals button
         } else if (this.classList.contains("equals")) {
-            if (answer == null) {
-                currentLog.push(parseFloat(currentEntry));
-                currentEntry = null;
-            } else {
-                currentLog.push(parseFloat(answer));
-            }
+            currentEntry = null;
             multiplierIndex = currentLog.indexOf("*");
             divideIndex = currentLog.indexOf("/");
-            while (multiplierIndex > -1) {
-                replacement = multiply(currentLog[multiplierIndex - 1], currentLog[multiplierIndex + 1]);
-                currentLog.splice(multiplierIndex - 1, 3, replacement);
-                multiplierIndex = currentLog.indexOf("*");
-                replacement = null;
+            if (multiplierIndex > -1) {
+                ez.push(multiplierIndex);
             }
-            while (divideIndex > -1) {
-                replacement = divide(currentLog[divideIndex - 1], currentLog[divideIndex + 1]);
-                currentLog.splice(divideIndex - 1, 3, replacement);
-                divideIndex = currentLog.indexOf("/");
+            if (divideIndex > -1) {
+                ez.push(divideIndex);
+            }
+            ez.sort(function (a, b) {
+                return b - a
+            });
+            while (ez.length > 1) {
+                multDivide = ez[ez.length - 1];
+                replacement = operate(currentLog[multDivide], currentLog[multDivide - 1], currentLog[multDivide + 1]);
+                currentLog.splice(multDivide - 1, 3, replacement);
                 replacement = null;
+                ez.pop();
+                multiplierIndex = currentLog.indexOf("*");
+                divideIndex = currentLog.indexOf("/");
+                if (multiplierIndex > -1) {
+                    ez.push(multiplierIndex);
+                }
+                if (divideIndex > -1) {
+                    ez.push(divideIndex);
+                }
+                ez.sort(function (a, b) {
+                    return b - a
+                });
             }
             if (currentLog.length > 2) {
                 while (currentLog.length > 2) {
@@ -78,10 +92,13 @@ btns.forEach((button) => {
             answer = null;
             outputArea.textContent = currentLog;
             answerArea.textContent = answer;
+        } else if (this.classList.contains("paren")) {
+            currentLog.push(this.value);
         }
         validateButtons();
         document.getElementById("current-entry").textContent = `currentEntry =${currentEntry}`;
-        document.getElementById("current-log").textContent = `cuurentLog = ${currentLog}`;
+        document.getElementById("current-log").textContent = `curentLog = ${currentLog}`;
+        document.getElementById("answer-stuff").textContent = `answer = ${answer}`;
     })
 })
 
@@ -159,3 +176,6 @@ function enableBtn(btnToEnable) {
 }
 
 validateButtons();
+document.getElementById("current-entry").textContent = `currentEntry =${currentEntry}`;
+document.getElementById("current-log").textContent = `cuurentLog = ${currentLog}`;
+document.getElementById("answer-stuff").textContent = `answer = ${answer}`;
