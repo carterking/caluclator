@@ -78,7 +78,10 @@ btns.forEach((button) => {
             if (currentLog.length > 2) {
                 while (currentLog.length > 2) {
                     replacement = operate(currentLog[1], currentLog[0], currentLog[2])
+                    console.log(`replacement= ${replacement}`);
+                    console.log(`currentLog= ${currentLog}`);
                     currentLog.splice(0, 3, replacement);
+                    console.log(`currentLog= ${currentLog}`);
                     replacement = null;
                     answer = currentLog.join("")
                 }
@@ -94,10 +97,10 @@ btns.forEach((button) => {
             answerArea.textContent = answer;
         } 
         validateButtons();
-        //console.log(`answer= ${answer}`);
-        //console.log(`currentLog= ${currentLog}`);
-        //console.log(`currentEntry= ${currentEntry}`);
-        //console.log(`ez= ${ez}`);
+        console.log(`answer= ${answer}`);
+        console.log(`currentLog= ${currentLog}`);
+        console.log(`currentEntry= ${currentEntry}`);
+        console.log(`ez= ${ez}`);
     })
 })
 
