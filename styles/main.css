@@ -1,9 +1,19 @@
-body {
-    background: lightblue;
-}
-
 main {
     max-width: 220px;
+    margin: 50px auto;
+}
+
+#calculator-area {
+    background: grey;
+    padding: 10px 2px;
+
+}
+
+#button-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    ;
 }
 
 button {
@@ -11,18 +21,43 @@ button {
     margin: 2px;
 }
 
-.output, button, main, .answer-area {
-    border: 1px solid black
+button,
+main {
+    border: 2px solid black;
+    border-radius: 8px;
 }
 
-div {
+.row {
     display: flex;
     justify-content: space-around;
 }
 
-.output, .answer-area {
+.output,
+.answer-area {
+    color: whitesmoke;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    background: black;
+    min-height: 25px;
+    padding-right: 5px;
+    font-size: 21px;
     justify-content: flex-end;
-    min-height: 20px;
+}
+
+.answer-area {
+    border-top: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.number,
+.period {
+    background: lightblue;
+}
+
+.operator,
+.equals {
+    background: orange;
 }
 
 #zero {
@@ -31,4 +66,4 @@ div {
 
 button:disabled {
     background: #dddddd;
-  }
+}

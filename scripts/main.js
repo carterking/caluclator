@@ -8,7 +8,7 @@ const periodBtn = document.getElementById("period");
 let currentEntry;
 let operator;
 let currentLog = [];
-let answer;
+let answer = null;
 let multiplierIndex;
 let divideIndex;
 let replacement;
@@ -31,7 +31,7 @@ btns.forEach((button) => {
                 outputArea.textContent = currentLog.join("");
             }
 
-            
+
             //handle operators
         } else if (this.classList.contains("operator")) {
             if (answer == null) {
@@ -57,7 +57,7 @@ btns.forEach((button) => {
             ez.sort(function (a, b) {
                 return b - a
             });
-            while (ez.length > 1) {
+            while (ez.length > 0) {
                 multDivide = ez[ez.length - 1];
                 replacement = operate(currentLog[multDivide], currentLog[multDivide - 1], currentLog[multDivide + 1]);
                 currentLog.splice(multDivide - 1, 3, replacement);
@@ -92,13 +92,12 @@ btns.forEach((button) => {
             answer = null;
             outputArea.textContent = currentLog;
             answerArea.textContent = answer;
-        } else if (this.classList.contains("paren")) {
-            currentLog.push(this.value);
-        }
+        } 
         validateButtons();
-        document.getElementById("current-entry").textContent = `currentEntry =${currentEntry}`;
-        document.getElementById("current-log").textContent = `curentLog = ${currentLog}`;
-        document.getElementById("answer-stuff").textContent = `answer = ${answer}`;
+        //console.log(`answer= ${answer}`);
+        //console.log(`currentLog= ${currentLog}`);
+        //console.log(`currentEntry= ${currentEntry}`);
+        //console.log(`ez= ${ez}`);
     })
 })
 
@@ -176,6 +175,3 @@ function enableBtn(btnToEnable) {
 }
 
 validateButtons();
-document.getElementById("current-entry").textContent = `currentEntry =${currentEntry}`;
-document.getElementById("current-log").textContent = `cuurentLog = ${currentLog}`;
-document.getElementById("answer-stuff").textContent = `answer = ${answer}`;
